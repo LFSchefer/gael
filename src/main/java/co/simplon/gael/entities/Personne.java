@@ -3,16 +3,19 @@ package co.simplon.gael.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="persons")
+@IdClass(PersonnePK.class)
 public class Personne {
     
     @Id
     @Column(name= "firstname")
     private String firstname;
     
+    @Id
     @Column(name="lastname")
     private String lastname;
     

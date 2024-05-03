@@ -22,18 +22,13 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/persons")
+@RequestMapping("/person")
 public class PersonnesController {
     
     private final PersonnesService service;
     
     public PersonnesController(PersonnesService service) {
 	this.service = service;
-    }
-    
-    @GetMapping("/import")
-    void importPersonnes() {
-	service.importPersonnes();
     }
     
     @GetMapping("/all")

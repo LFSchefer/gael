@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import co.simplon.gael.dots.PersonCreate;
-import co.simplon.gael.dots.PersonImport;
 import co.simplon.gael.dots.PersonUpdate;
 import co.simplon.gael.entities.Personne;
 import co.simplon.gael.repositories.PersonnesJpaRespository;
@@ -60,14 +59,6 @@ public class PersonnesService {
 
     public Personne getOne(String id) {
 	return repository.findById(id).get();
-    }
-
-    public void importPersonnes() {
-	RestClient restClient = RestClient.create();
-	List<PersonImport> importedPersonnes = restClient.get().uri(
-		"/home/lf/code/LFSchefer/test_code/spring_gael/temp/data.json")
-		.retrieve().body(new ParameterizedTypeReference<>() {
-		});
     }
 
 }
