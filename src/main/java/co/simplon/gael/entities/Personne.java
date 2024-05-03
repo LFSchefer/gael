@@ -8,14 +8,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="persons")
-@IdClass(PersonnePK.class)
+//@IdClass(PersonnePK.class)
 public class Personne {
     
     @Id
     @Column(name= "firstname")
     private String firstname;
     
-    @Id
     @Column(name="lastname")
     private String lastname;
     

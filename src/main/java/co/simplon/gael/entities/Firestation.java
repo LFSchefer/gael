@@ -25,9 +25,7 @@ public class Firestation {
     public void setStation(String station) {
         this.station = station;
     }
-    public Firestation(String address, String station) {
-	this.address = address;
-	this.station = station;
+    public Firestation() {
     }
     @Override
     public String toString() {
