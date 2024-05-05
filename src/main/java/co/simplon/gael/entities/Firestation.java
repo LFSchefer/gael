@@ -32,5 +32,4 @@ public class Firestation {
 	return "{address=" + address + ", station=" + station + "}";
     }
     
-    
 }
