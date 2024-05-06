@@ -13,11 +13,11 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class PersonnesService {
+public class PersonsServiceImpl implements PersonsService{
     
     public final PersonsRespository repository;
 
-    public List<Person> findPersonnes() {
+    public List<Person> findPersons() {
 	return repository.findAll();
     }
 

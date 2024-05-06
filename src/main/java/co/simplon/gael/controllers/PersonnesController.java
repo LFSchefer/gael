@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.gael.dtos.PersonCreate;
 import co.simplon.gael.dtos.PersonUpdate;
 import co.simplon.gael.entities.Person;
-import co.simplon.gael.services.PersonnesService;
+import co.simplon.gael.services.PersonsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -25,11 +25,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PersonnesController {
     
-    private final PersonnesService service;
+    private final PersonsService service;
     
     @GetMapping("/all")
-    public ResponseEntity<List<Person>> findPersonnes() {
-	final var personnes = service.findPersonnes();
+    public ResponseEntity<List<Person>> findPersons() {
+	final var personnes = service.findPersons();
 	return new ResponseEntity<>(personnes, HttpStatus.OK);
     }
     
