@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,24 +13,21 @@ import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.services.FirestationService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
 @RequestMapping("/firestation")
+@AllArgsConstructor
 public class FirestationController {
     
-    FirestationService service;
-    
-    public FirestationController(FirestationService service) {
-	this.service = service;
-    }
+    private final FirestationService service;
     
     @GetMapping("/all")
     public ResponseEntity<List<Firestation>>  findAll() {
@@ -46,12 +42,13 @@ public class FirestationController {
     }
     
     @PatchMapping("/update")
-    public Firestation update(@RequestBody FirestationUpdate input) {
-	return service.update(input);
+    public ResponseEntity<Firestation> update(@RequestBody FirestationUpdate input) {
+	final var firestationUpdate = service.update(input);
+	return new ResponseEntity<>(firestationUpdate, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> delete(@RequestParam String id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
 	service.delete(id);
 	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

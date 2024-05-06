@@ -9,15 +9,13 @@ import co.simplon.gael.dtos.PersonCreate;
 import co.simplon.gael.dtos.PersonUpdate;
 import co.simplon.gael.entities.Person;
 import co.simplon.gael.repositories.PersonsRespository;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class PersonnesService {
     
     public final PersonsRespository repository;
-    
-    public PersonnesService(PersonsRespository repository) {
-	this.repository = repository;
-    }
 
     public List<Person> findPersonnes() {
 	return repository.findAll();

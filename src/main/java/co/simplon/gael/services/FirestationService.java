@@ -8,15 +8,13 @@ import co.simplon.gael.dtos.FirestationCreate;
 import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.repositories.FirestationRepository;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class FirestationService {
     
-    FirestationRepository repository;
-    
-    public FirestationService(FirestationRepository repository) {
-	this.repository = repository;
-    }
+    private final FirestationRepository repository;
     
     public List<Firestation> findAll() {
 	return repository.findAll();
