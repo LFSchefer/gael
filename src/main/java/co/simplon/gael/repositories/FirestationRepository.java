@@ -12,12 +12,8 @@ public interface FirestationRepository extends JpaRepository<Firestation, String
     
     String FIND_FIRESTATION = "SELECT * FROM firestations f "
     	+ "WHERE f.address = (:address)";
-
-//    @Query(value = "select * from firestations f where f.address = :address", nativeQuery = true)
-//    Firestation toto(@Param("address") String address);
     
     @Query(value = FIND_FIRESTATION, nativeQuery = true)
     Firestation toto(@Param("address") String address);
     
-
 }
