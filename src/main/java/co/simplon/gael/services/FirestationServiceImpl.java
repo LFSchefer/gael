@@ -42,4 +42,12 @@ public class FirestationServiceImpl implements FirestationService{
 	repository.deleteById(id);
     }
     
+    public Firestation toto(String address) {
+	return repository.toto(address);
+    }
+    
+//    public Firestation toto(String id) {
+//	return repository.findById(id).get();
+//    }
+
 }

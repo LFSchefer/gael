@@ -15,5 +15,7 @@ public interface FirestationService {
     Firestation update(FirestationUpdate input);
     
     void delete(String id);
+
+    Firestation toto(String address);
     
 }

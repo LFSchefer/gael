@@ -6,13 +6,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="firestations")
+@Table(name="firestations", schema = "public")
 public class Firestation {
+    
     @Id
     @Column(name="address")
     private String address;
+    
     @Column(name="station")
     private String station;
+    
     public String getAddress() {
         return address;
     }

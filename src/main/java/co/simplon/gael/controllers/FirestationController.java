@@ -52,4 +52,9 @@ public class FirestationController {
 	service.delete(id);
 	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/test/{address}")
+    public ResponseEntity<Firestation> findOne(@PathVariable String address) {
+	return new ResponseEntity<>(service.toto(address), HttpStatus.OK);
+    }
 }
