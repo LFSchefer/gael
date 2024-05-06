@@ -5,59 +5,59 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import co.simplon.gael.dots.PersonCreate;
-import co.simplon.gael.dots.PersonUpdate;
-import co.simplon.gael.entities.Personne;
-import co.simplon.gael.repositories.PersonnesJpaRespository;
+import co.simplon.gael.dtos.PersonCreate;
+import co.simplon.gael.dtos.PersonUpdate;
+import co.simplon.gael.entities.Person;
+import co.simplon.gael.repositories.PersonsRespository;
 
 @Service
 public class PersonnesService {
     
-    public final PersonnesJpaRespository repository;
+    public final PersonsRespository repository;
     
-    public PersonnesService(PersonnesJpaRespository repository) {
+    public PersonnesService(PersonsRespository repository) {
 	this.repository = repository;
     }
 
-    public List<Personne> getPersonnes() {
+    public List<Person> findPersonnes() {
 	return repository.findAll();
     }
 
-    public Personne create(PersonCreate input) {
-	Personne personne = new Personne();
-	personne.setFirstname(input.firstname());
-	personne.setLastname(input.lastname());
-	personne.setAddress(input.address());
-	personne.setCity(input.city());
-	personne.setZip(input.zip());
-	personne.setPhone(input.phone());
-	personne.setEmail(input.email());
-	return repository.saveAndFlush(personne);
+    public Person create(PersonCreate input) {
+	Person person = new Person();
+	person.setFirstname(input.firstname());
+	person.setLastname(input.lastname());
+	person.setAddress(input.address());
+	person.setCity(input.city());
+	person.setZip(input.zip());
+	person.setPhone(input.phone());
+	person.setEmail(input.email());
+	return repository.saveAndFlush(person);
     }
 
     public void deleteAll() {
 	repository.deleteAll();
     }
 
-    public void delete(String input) {
+    public void deleteOne(String input) {
 	repository.deleteById(input);
     }
 
-    public Personne update(String id, PersonUpdate input) {
-	if (repository.findById(id).isPresent()) {
-	    Personne personne = repository.findById(id).get();
-	    if (input.address() != null) {personne.setAddress(input.address());}
-	    if (input.city() != null) {personne.setCity(input.city());}
-	    if (input.zip() != null) {personne.setZip(input.zip());}
-	    if (input.email() != null) {personne.setEmail(input.email());}
-	    if (input.phone() != null) {personne.setPhone(input.phone());}
-	    return repository.saveAndFlush(personne);
+    public Person update(PersonUpdate input) {
+	if (repository.findById(input.firstname()).isPresent()) {
+	    Person person = repository.findById(input.firstname()).get();
+	    if (input.address() != null) {person.setAddress(input.address());}
+	    if (input.city() != null) {person.setCity(input.city());}
+	    if (input.zip() != null) {person.setZip(input.zip());}
+	    if (input.email() != null) {person.setEmail(input.email());}
+	    if (input.phone() != null) {person.setPhone(input.phone());}
+	    return repository.saveAndFlush(person);
 	} else {
 	    return null;
 	}
     }
 
-    public Personne getOne(String id) {
+    public Person findOne(String id) {
 	return repository.findById(id).get();
     }
 

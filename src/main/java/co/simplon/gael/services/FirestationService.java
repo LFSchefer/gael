@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import co.simplon.gael.dots.FirestationCreate;
-import co.simplon.gael.dots.FirestationUpdate;
+import co.simplon.gael.dtos.FirestationCreate;
+import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.repositories.FirestationRepository;
 
@@ -18,7 +18,7 @@ public class FirestationService {
 	this.repository = repository;
     }
     
-    public List<Firestation> getAll() {
+    public List<Firestation> findAll() {
 	return repository.findAll();
     }
 
@@ -28,13 +28,14 @@ public class FirestationService {
 	firestation.setStation(input.station());
 	return repository.saveAndFlush(firestation);
     }
-
-    public Firestation update(String id, String station) {
-	if (repository.existsById(id)) {
-		Firestation firestation = repository.findById(id).get();
-		firestation.setStation(station);
-		return repository.saveAndFlush(firestation);
-	} else {
+    
+    public Firestation update(FirestationUpdate input) {
+	if (repository.existsById(input.address())) {
+	    Firestation firestation = repository.findById(input.address()).get();
+	    firestation.setStation(input.station());
+	    return repository.saveAndFlush(firestation);
+	}
+	else {
 	    return null;
 	}
     }

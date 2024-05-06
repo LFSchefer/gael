@@ -1,4 +1,4 @@
-package co.simplon.gael.dots;
+package co.simplon.gael.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 

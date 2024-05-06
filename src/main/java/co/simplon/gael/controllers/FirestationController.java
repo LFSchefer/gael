@@ -2,13 +2,15 @@ package co.simplon.gael.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.simplon.gael.dots.FirestationCreate;
-import co.simplon.gael.dots.FirestationUpdate;
+import co.simplon.gael.dtos.FirestationCreate;
+import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.services.FirestationService;
 import jakarta.validation.Valid;
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/firestation")
-@CrossOrigin("*")
 public class FirestationController {
     
     FirestationService service;
@@ -33,27 +34,25 @@ public class FirestationController {
     }
     
     @GetMapping("/all")
-    public List<Firestation>  getAll() {
-	return service.getAll();
+    public ResponseEntity<List<Firestation>>  findAll() {
+	final var firestations = service.findAll();
+	return new ResponseEntity<>(firestations, HttpStatus.OK);
     }
     
     @PostMapping("/create")
-    public Firestation create(@RequestBody @Valid FirestationCreate input) {
-	return service.create(input);
+    public ResponseEntity<Firestation> create(@RequestBody @Valid FirestationCreate input) {
+	final var firestation = service.create(input);
+	return new ResponseEntity<>(firestation,HttpStatus.CREATED);
     }
-    
-//    @PatchMapping("/update")
-//    public Firestation update(@RequestParam String id, @RequestBody FirestationUpdate input) {
-//	return service.update(id, input); 
-//    }
     
     @PatchMapping("/update")
-    public Firestation update(@RequestParam String id, @RequestParam String station) {
-	return service.update(id, station); 
+    public Firestation update(@RequestBody FirestationUpdate input) {
+	return service.update(input);
     }
-    
+
     @DeleteMapping("/delete")
-    public void delete(@RequestParam String id) {
+    public ResponseEntity<Void> delete(@RequestParam String id) {
 	service.delete(id);
+	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

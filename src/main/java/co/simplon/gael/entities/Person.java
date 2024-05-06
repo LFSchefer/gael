@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="persons")
 //@IdClass(PersonnePK.class)
-public class Personne {
+public class Person {
     
     @Id
     @Column(name= "firstname")
@@ -33,7 +33,7 @@ public class Personne {
     @Column(name="email")
     private String email;
     
-    public Personne() {
+    public Person() {
 	
     }
 
