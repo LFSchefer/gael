@@ -6,7 +6,7 @@ DELETE FROM medicalrecords ;
 DELETE FROM medications ;
 DELETE FROM allergies ;
 
-INSERT INTO firestations (address, station) VALUES 
+INSERT INTO firestations (address, station) VALUES
 ( '1509 Culver St', '3' ),
 ( '29 15th St','2' ),
 ( '834 Binoc Ave', '3' ),
@@ -23,7 +23,7 @@ INSERT INTO firestations (address, station) VALUES
 
 SELECT * FROM firestations f ;
 
-INSERT INTO persons (firstname, lastname, address, city, zip, phone, email) VALUES 
+INSERT INTO persons (firstname, lastname, address, city, zip, phone, email) VALUES
 ( 'John', 'Boyd', '1509 Culver St', 'Culver', '97451', '841-874-6512', 'jaboyd@email.com' ),
 ( 'Jacob', 'Boyd', '1509 Culver St', 'Culver', '97451', '841-874-6513', 'drk@email.com' ),
 ( 'Tenley', 'Boyd', '1509 Culver St', 'Culver', '97451', '841-874-6512', 'tenz@email.com' ),
@@ -50,7 +50,7 @@ INSERT INTO persons (firstname, lastname, address, city, zip, phone, email) VALU
 
 SELECT * FROM persons p ;
 
-INSERT INTO medicalrecords (firstname,lastname,birthdate) VALUES 
+INSERT INTO medicalrecords (firstname,lastname,birthdate) VALUES
 ( 'John', 'Boyd', '03/06/1984' ),
 ( 'Jacob', 'Boyd', '03/06/1989' ),
 ( 'Tenley', 'Boyd', '02/18/2012'),
@@ -77,7 +77,7 @@ INSERT INTO medicalrecords (firstname,lastname,birthdate) VALUES
 
 SELECT * FROM medicalrecords m ;
 
-INSERT INTO medications (medication_name) VALUES 
+INSERT INTO medications (medication_name) VALUES
 ('aznol:350mg'),
 ('hydrapermazol:100mg'),
 ('pharmacol:5000mg'),
@@ -99,7 +99,7 @@ INSERT INTO medications (medication_name) VALUES
 
 SELECT * FROM medications m ;
 
-INSERT INTO allergies (allergies_name) VALUES 
+INSERT INTO allergies (allergies_name) VALUES
 ('nillacilan'),
 ('peanut'),
 ('xilliathal'),
@@ -109,7 +109,7 @@ INSERT INTO allergies (allergies_name) VALUES
 
 SELECT * FROM allergies a ;
 
-INSERT INTO person_medication (firstname, lastname, medication_name) VALUES 
+INSERT INTO person_medication (firstname, lastname, medication_name) VALUES
 ('John','Boyd','aznol:350mg'),
 ('John','Boyd','hydrapermazol:100mg'),
 ('Jacob','Boyd','pharmacol:5000mg'),
@@ -132,7 +132,7 @@ INSERT INTO person_medication (firstname, lastname, medication_name) VALUES
 
 SELECT * FROM person_medication pm ;
 
-INSERT INTO person_allergie (firstname, lastname, allergie_name) VALUES 
+INSERT INTO person_allergie (firstname, lastname, allergie_name) VALUES
 ('John','Boyd','nillacilan'),
 ('Tenley','Boyd','peanut'),
 ('Felicia','Boyd','xilliathal'),

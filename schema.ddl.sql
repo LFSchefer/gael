@@ -20,7 +20,7 @@ CREATE TABLE persons (
 CREATE TABLE firestations (
 	address varchar NOT NULL,
 	station varchar NOT NULL,
-	CONSTRAINT firestation_pkey PRIMARY KEY (address) 
+	CONSTRAINT firestation_pkey PRIMARY KEY (address)
 );
 
 CREATE TABLE medicalrecords  (
@@ -43,8 +43,9 @@ CREATE TABLE person_medication (
 	firstname varchar NOT NULL,
 	lastname varchar NOT NULL,
 	medication_name varchar NOT NULL,
-	CONSTRAINT name_mediacalrecord_fkey FOREIGN KEY (firstname, lastname) REFERENCES medicalrecords(firstname,lastname),
-	CONSTRAINT medication_fkey FOREIGN KEY (medication_name) REFERENCES  medications(medication_name)
+	CONSTRAINT name_mediacalrecord_fkey FOREIGN KEY (firstname, lastname) REFERENCES medicalrecords(firstname,lastname) ON DELETE CASCADE,
+	CONSTRAINT medication_fkey FOREIGN KEY (medication_name) REFERENCES  medications(medication_name) ON DELETE CASCADE,
+	UNIQUE (firstname, lastname, medication_name)
 );
 
 CREATE TABLE person_allergie (
@@ -52,6 +53,7 @@ CREATE TABLE person_allergie (
 	firstname varchar NOT NULL,
 	lastname varchar NOT NULL,
 	allergie_name varchar NOT NULL,
-	CONSTRAINT name_allergie_fkey FOREIGN KEY (firstname, lastname) REFERENCES medicalrecords(firstname,lastname),
-	CONSTRAINT allergies_fkey FOREIGN KEY (allergie_name) REFERENCES  allergies(allergies_name)
+	CONSTRAINT name_allergie_fkey FOREIGN KEY (firstname, lastname) REFERENCES medicalrecords(firstname,lastname) ON DELETE CASCADE,
+	CONSTRAINT allergies_fkey FOREIGN KEY (allergie_name) REFERENCES  allergies(allergies_name) ON DELETE CASCADE,
+	UNIQUE (firstname, lastname ,allergie_name)
 );

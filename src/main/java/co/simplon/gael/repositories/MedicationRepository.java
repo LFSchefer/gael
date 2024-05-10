@@ -23,7 +23,11 @@ public interface MedicationRepository extends JpaRepository<MedicalRecord, Strin
     
     @Query(value=FIND_PERSON_ALLERGIES, nativeQuery = true)
     List<String> findAllergies(@Param("firstname") String firstname);
-
-    void deleteRecord(String firstname);
+    
+//    String INSERT_PERSON_MEDICATION = "INSERT INTO person_medication (firstname, lastname, medication_name) VALUES"
+//    	+ "(:firstname,:lastname,:medication)";
+//
+//    @Query(value=INSERT_PERSON_MEDICATION, nativeQuery = true)
+//    Object insertPersonMedication(@Param("medication") String medication,@Param("firstname") String firstname,@Param("lastname") String lastname);
 
 }

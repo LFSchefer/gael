@@ -7,14 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.gael.dtos.CreateMedicalRecord;
 import co.simplon.gael.dtos.PersonAllergies;
 import co.simplon.gael.dtos.PersonMedicalRecord;
 import co.simplon.gael.dtos.PersonMedications;
 import co.simplon.gael.entities.MedicalRecord;
 import co.simplon.gael.services.MedicalRecordService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -51,6 +55,11 @@ public class MedicalRecordController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRecord(@PathVariable("firstname") String firstname) {
 	service.deleteRecord(firstname);
+    }
+    
+    @PostMapping("create")
+    public ResponseEntity<CreateMedicalRecord> createMedicalRecord(@RequestBody @Valid CreateMedicalRecord input) {
+	return new ResponseEntity<>(service.createMedicalRecord(input), HttpStatus.CREATED);
     }
     
 }

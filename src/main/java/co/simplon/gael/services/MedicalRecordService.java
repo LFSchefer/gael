@@ -2,6 +2,7 @@ package co.simplon.gael.services;
 
 import java.util.List;
 
+import co.simplon.gael.dtos.CreateMedicalRecord;
 import co.simplon.gael.dtos.PersonAllergies;
 import co.simplon.gael.dtos.PersonMedicalRecord;
 import co.simplon.gael.dtos.PersonMedications;
@@ -18,4 +19,6 @@ public interface MedicalRecordService {
     PersonMedicalRecord findMedicalRecord(String firstname);
 
     void deleteRecord(String firstname);
+
+    CreateMedicalRecord createMedicalRecord(CreateMedicalRecord input);
 }
