@@ -1,13 +1,16 @@
 package co.simplon.gael.controllers;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.gael.dtos.FindFirestationPersonsView;
 import co.simplon.gael.dtos.FirestationCreate;
 import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
@@ -56,5 +59,10 @@ public class FirestationController {
     @GetMapping("/test/{address}")
     public ResponseEntity<Firestation> findOne(@PathVariable String address) {
 	return new ResponseEntity<>(service.toto(address), HttpStatus.OK);
+    }
+    
+    @GetMapping()
+    public ResponseEntity<FindFirestationPersonsView> stationPersons(@RequestParam("stationNumber") String stationNumber) throws ParseException {
+	return new ResponseEntity<>(service.findFirestationPersons(stationNumber), HttpStatus.OK);
     }
 }

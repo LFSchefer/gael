@@ -1,7 +1,9 @@
 package co.simplon.gael.services;
 
+import java.text.ParseException;
 import java.util.List;
 
+import co.simplon.gael.dtos.FindFirestationPersonsView;
 import co.simplon.gael.dtos.FirestationCreate;
 import co.simplon.gael.dtos.FirestationUpdate;
 import co.simplon.gael.entities.Firestation;
@@ -17,5 +19,7 @@ public interface FirestationService {
     void delete(String id);
 
     Firestation toto(String address);
+
+    FindFirestationPersonsView findFirestationPersons(String stationNumber) throws ParseException;
     
 }

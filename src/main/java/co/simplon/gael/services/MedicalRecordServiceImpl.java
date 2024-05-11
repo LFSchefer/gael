@@ -109,7 +109,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
 	    personmedication.setFirstname(medicalRecordCreation.firstname());
 	    personmedication.setLastname(medicalRecordCreation.lastname());
 	    personmedication.setMedicationName(medicalRecordCreation.medications().get(i));
-//	    System.out.println(personmedication);
 	    personMedicationRepository.save(personmedication);
 	}
 	
