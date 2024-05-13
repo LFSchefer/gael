@@ -58,5 +58,9 @@ public class PersonsServiceImpl implements PersonsService{
     public Person findOne(String id) {
 	return repository.findById(id).get();
     }
+    
+    public List<Person> custom() {
+	return repository.findAll().stream().filter(t -> t.getFirstname().equals("John") && t.getLastname().equals("SMITH") ).toList();	
+	}
 
 }
