@@ -45,4 +45,9 @@ public class AlertController {
     public ResponseEntity<FireView> fire(@RequestParam("address") String address) {
 	return new ResponseEntity<>(service.fire(address), HttpStatus.OK);
     }
+    
+    @GetMapping("flood/stations")
+    public void flood(@RequestParam("stations") String stations) {
+	service.flood(stations);
+    }
 }

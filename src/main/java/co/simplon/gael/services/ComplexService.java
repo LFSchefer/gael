@@ -17,4 +17,6 @@ public interface ComplexService {
     CommunityEmails communityEmail(String city);
 
     FireView fire(String address);
+
+    void flood(String stations);
 }

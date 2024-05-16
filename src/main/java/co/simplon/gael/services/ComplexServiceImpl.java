@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -132,6 +133,12 @@ public class ComplexServiceImpl implements ComplexService {
 	).toList();
 
 	return new FireView(personsFireView,firestation.getStation());
+    }
+    
+    public void flood(String stations) {
+	List<Integer> stationsList = Stream.of(stations.split(",")).map(String::trim).map(Integer::parseInt).toList();
+
+	System.out.println(stationsList);
     }
 
     
