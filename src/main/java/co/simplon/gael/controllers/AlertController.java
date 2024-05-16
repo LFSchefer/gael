@@ -27,7 +27,7 @@ public class AlertController {
     }
     
     @GetMapping("/phoneAlert")
-    public ResponseEntity<List<PhoneAlertView>> getMethodName(@RequestParam("firestation") String firestationNumber) {
+    public ResponseEntity<PhoneAlertView> getMethodName(@RequestParam("firestation") String firestationNumber) {
 	return new ResponseEntity<>(service.phoneAlert(firestationNumber), HttpStatus.OK);
     }
     

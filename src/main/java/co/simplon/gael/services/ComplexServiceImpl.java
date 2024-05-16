@@ -80,7 +80,7 @@ public class ComplexServiceImpl implements ComplexService {
     }
 
     
-    public List<PhoneAlertView> phoneAlert(String firestationNumber) {
+    public PhoneAlertView phoneAlert(String firestationNumber) {
 	List<Firestation> firestations = firestationService.findAll().stream().filter(f -> f.getStation().equals(firestationNumber) ).toList();
 	List<Person> persons = personService.findAll().stream().filter(p -> firestations.stream()
 		.map(Firestation::getAddress)
@@ -88,11 +88,7 @@ public class ComplexServiceImpl implements ComplexService {
 		.contains(p.getAddress())
 		)
 		.toList();
-	System.out.println(firestations);
-	System.out.println(persons);
-	
-	
-	return null;
+	return new PhoneAlertView(persons.stream().map(p -> p.getPhone()).toList());
     }
 
     

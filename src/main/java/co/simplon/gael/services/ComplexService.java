@@ -9,5 +9,5 @@ public interface ComplexService {
 
     List<ChildAlertView> childAlert(String input);
 
-    List<PhoneAlertView> phoneAlert(String firestationNumber);
+    PhoneAlertView phoneAlert(String firestationNumber);
 }
