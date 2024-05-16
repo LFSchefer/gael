@@ -51,45 +51,32 @@ public class ComplexServiceImpl implements ComplexService {
 	    return List.of();
 	}
 	
-	
 	List<Person> minors = persons
 		.stream()
 		.filter(p -> minorsMedicalRecords.stream().map(MedicalRecord::getFirstname).toList().contains(p.getFirstname()) && minorsMedicalRecords.stream().map(MedicalRecord::getLastname).toList().contains(p.getLastname()))
 		.toList();
 	
-//	System.out.println(minors);
-	
-	 List<String> test = minors.stream().filter(m -> 
-	 	minorsMedicalRecords.stream().map(MedicalRecord::getFirstname).toList().contains(m.getFirstname()) 
-	 	&& 
-	 	minorsMedicalRecords.stream().map(MedicalRecord::getLastname).toList().contains(m.getLastname()))
-		 .map(t -> t.getFirstname())
-		 .toList();
-
-//	System.out.println(test);
-	
-	List<Integer> ages = minorsMedicalRecords.stream().map(t -> { return calculateAge(t);}).toList();
-	
-	System.out.println(ages);
-	
-	
-	System.out.println(calculateAge(minorsMedicalRecords.stream().filter(t -> (t.getFirstname().equals("Roger"))).findFirst().get()));
-	
 	List<ChildAlertView> childAlert = new ArrayList<>();
 	childAlert = minors.stream().map(minor -> {
 	    return new ChildAlertView(
 		minor.getFirstname(),
-		minor.getLastname()
-		
+		minor.getLastname(),
+		calculateAge(minorsMedicalRecords.stream().filter(t -> (t.getFirstname().equals(minor.getFirstname()) && t.getLastname().equals(minor.getLastname()))).findFirst().get()),
+		persons.stream().filter(t -> !(t.getFirstname().equals(minor.getFirstname()) && t.getLastname().equals(minor.getLastname())) ).map( person -> { 
+		    return new ChildAlertView.PersonIdentity(
+			    person.getFirstname(),
+			    person.getLastname());
+			    }).toList()
 		)
 		;} ).toList();
 	
 	System.out.println(childAlert);
-	
-	return minors.stream()
-	.map(minor -> {
-	    return new ChildAlertView();
-	}).toList();
+
+	return childAlert;
+//	return minors.stream()
+//	.map(minor -> {
+//	    return new ChildAlertView();
+//	}).toList();
 	
     }
 

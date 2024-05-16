@@ -20,18 +20,22 @@ public class ChildAlertView {
     private Integer age;
     private List<PersonIdentity> family;
     
-    public ChildAlertView(String firstname, String lastname) {
-	this.firstname = firstname;
-	this.lastname = lastname;
-    }
-    
     public ChildAlertView(String firstname, String lastname, Integer age) {
 	this.firstname = firstname;
 	this.lastname = lastname;
 	this.age = age;
     }
     
+    public ChildAlertView(String firstname, String lastname, Integer age, List<PersonIdentity> family) {
+	this.firstname = firstname;
+	this.lastname = lastname;
+	this.age = age;
+	this.family = family;
+    }
+    
     @AllArgsConstructor
+    @Getter
+    @ToString
     public static class PersonIdentity {
 		String firstname;
 		String lastname;
