@@ -17,7 +17,7 @@ public class PersonsServiceImpl implements PersonsService{
     
     public final PersonsRespository repository;
 
-    public List<Person> findPersons() {
+    public List<Person> findAll() {
 	return repository.findAll();
     }
 

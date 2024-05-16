@@ -29,7 +29,7 @@ public class PersonnesController {
     
     @GetMapping("/all")
     public ResponseEntity<List<Person>> findPersons() {
-	final var personnes = service.findPersons();
+	final var personnes = service.findAll();
 	return new ResponseEntity<>(personnes, HttpStatus.OK);
     }
     

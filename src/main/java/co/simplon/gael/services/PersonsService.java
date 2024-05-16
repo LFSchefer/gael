@@ -8,7 +8,7 @@ import co.simplon.gael.entities.Person;
 
 public interface PersonsService {
     
-    List<Person> findPersons();
+    List<Person> findAll();
     
     Person findOne(String id);
     

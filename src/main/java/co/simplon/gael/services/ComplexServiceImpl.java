@@ -6,11 +6,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import co.simplon.gael.dtos.ChildAlertView;
+import co.simplon.gael.dtos.PhoneAlertView;
+import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.entities.MedicalRecord;
 import co.simplon.gael.entities.Person;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,11 @@ public class ComplexServiceImpl implements ComplexService {
 
     private final PersonsService personService;
     private final MedicalRecordService medicalRecordService;
+    private final FirestationService firestationService;
     
     public List<ChildAlertView> childAlert(String input) {
 	//Find persons by address
-	List<Person> persons = personService.findPersons().stream().filter(t -> t.getAddress().equals(input)).toList();
+	List<Person> persons = personService.findAll().stream().filter(t -> t.getAddress().equals(input)).toList();
 	//find medical records for persons
 	List<MedicalRecord> medicalRecords = medicalRecordService.findAll()
 		.stream()
@@ -73,14 +75,30 @@ public class ComplexServiceImpl implements ComplexService {
 	System.out.println(childAlert);
 
 	return childAlert;
-//	return minors.stream()
-//	.map(minor -> {
-//	    return new ChildAlertView();
-//	}).toList();
+
 	
     }
 
+    
+    public List<PhoneAlertView> phoneAlert(String firestationNumber) {
+	List<Firestation> firestations = firestationService.findAll().stream().filter(f -> f.getStation().equals(firestationNumber) ).toList();
+	List<Person> persons = personService.findAll().stream().filter(p -> firestations.stream()
+		.map(Firestation::getAddress)
+		.toList()
+		.contains(p.getAddress())
+		)
+		.toList();
+	System.out.println(firestations);
+	System.out.println(persons);
+	
+	
+	return null;
+    }
 
+    
+    
+    
+    
     private int calculateAge(MedicalRecord m) {
 	final LocalDate dateNow = LocalDate.now();
 	final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
