@@ -20,10 +20,10 @@ public interface FirestationRepository extends JpaRepository<Firestation, String
     Firestation toto(@Param("address") String address);
 
     
-    String FIND_FIRESTATION_PERSONS = "    SELECT p.firstname as firstname, p.lastname as lastname, p.address as address, p.phone as phone,m.birthdate as birthdate FROM firestations f"
-    	+ "    JOIN persons p ON p.address = f.address"
-    	+ "    JOIN medicalrecords m ON m.firstname = p.firstname AND m.lastname = p.lastname "
-    	+ "    WHERE f.station = :stationNumber";
+    String FIND_FIRESTATION_PERSONS = "SELECT p.firstname as firstname, p.lastname as lastname, p.address as address, p.phone as phone,m.birthdate as birthdate FROM firestations f"
+    	+ " JOIN persons p ON p.address = f.address"
+    	+ " JOIN medicalrecords m ON m.firstname = p.firstname AND m.lastname = p.lastname "
+    	+ " WHERE f.station = :stationNumber";
 
     @Query(value= FIND_FIRESTATION_PERSONS, nativeQuery = true)
     List<FindFirestationPerson> findFirestationPersons(@Param("stationNumber") String stationNumber);

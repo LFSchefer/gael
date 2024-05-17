@@ -16,6 +16,7 @@ import co.simplon.gael.dtos.ChildAlertView;
 import co.simplon.gael.dtos.CommunityEmails;
 import co.simplon.gael.dtos.FireView;
 import co.simplon.gael.dtos.FloodView;
+import co.simplon.gael.dtos.PersonInfoView;
 import co.simplon.gael.dtos.PersonMedicalRecord;
 import co.simplon.gael.dtos.PersonView;
 import co.simplon.gael.dtos.PhoneAlertView;
@@ -168,11 +169,40 @@ public class ComplexServiceImpl implements ComplexService {
 			personsFiltred.getPhone(),
 			calculateAge(personMedicalRecord.stream().filter(t -> t.getFirstname().equals(personsFiltred.getFirstname()) ).findFirst().get()),
 			personsAllergies.stream().filter(a -> a.getFirstname().equals(personsFiltred.getFirstname()) && a.getLastname().equals(personsFiltred.getLastname()) ).map(a -> a.getAllergieName() ).toList() ,
-			personsMedications.stream().filter(a -> a.getFirstname().equals(personsFiltred.getFirstname()) && a.getLastname().equals(personsFiltred.getLastname()) ).map(a -> {return a.getMedicationName();} ).toList())
+			personsMedications.stream().filter(a -> a.getFirstname().equals(personsFiltred.getFirstname()) && a.getLastname().equals(personsFiltred.getLastname()) ).map(a -> a.getMedicationName() ).toList())
 			;}).toList())
 		;}).toList();
 	return floodViews;
      }
+    
+    public List<PersonInfoView> personInfo(String firstname, String lastname) {
+	List<Person> persons = personService.findAll().stream().filter(t -> t.getFirstname().equals(firstname) && t.getLastname().equals(lastname) ).toList();
+	List<MedicalRecord> medicalRecords = medicalRecordService.findAll().stream().filter(m -> persons.stream()
+		.map(Person::getFirstname).toList().contains(m.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(m.getLastname())
+		).toList();
+	List<PersonAllergie> personAllergies = personAllergieService.findAll().stream().filter(a -> persons.stream()
+		.map(Person::getFirstname).toList().contains(a.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(a.getLastname())
+		).toList();
+	List<PersonMedication> personMedications = personMedicationService.findAll().stream().filter(a -> persons.stream()
+		.map(Person::getFirstname).toList().contains(a.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(a.getLastname())
+		).toList();
+	List<PersonInfoView> personsInfo = new ArrayList<>();
+	personsInfo = persons.stream().map(p -> { return new PersonInfoView(p.getFirstname(),
+		p.getLastname(),
+		p.getAddress(),
+		p.getEmail(),
+		calculateAge(medicalRecords.stream().filter(t -> t.getFirstname().equals(p.getFirstname()) && t.getLastname().equals(p.getLastname()) ).findFirst().get()),
+		personAllergies.stream().filter(t -> t.getFirstname().equals(p.getFirstname()) && t.getLastname().equals(p.getLastname()) ).map(a -> a.getAllergieName() ).toList(),
+		personMedications.stream().filter(t -> t.getFirstname().equals(p.getFirstname()) && t.getLastname().equals(p.getLastname()) ).map(a -> a.getMedicationName() ).toList())
+		;} ).toList();
+	return personsInfo;
+    }
 
     
     private int calculateAge(MedicalRecord m) {

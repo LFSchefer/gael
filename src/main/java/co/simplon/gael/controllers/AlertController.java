@@ -14,6 +14,7 @@ import co.simplon.gael.dtos.ChildAlertView;
 import co.simplon.gael.dtos.CommunityEmails;
 import co.simplon.gael.dtos.FireView;
 import co.simplon.gael.dtos.FloodView;
+import co.simplon.gael.dtos.PersonInfoView;
 import co.simplon.gael.dtos.PersonView;
 import co.simplon.gael.dtos.PhoneAlertView;
 import co.simplon.gael.services.ComplexService;
@@ -50,5 +51,10 @@ public class AlertController {
     @GetMapping("flood/stations")
     public ResponseEntity<List<FloodView>> flood(@RequestParam("stations") String stations) {
 	return new ResponseEntity<>(service.flood(stations), HttpStatus.OK);
+    }
+    
+    @GetMapping("personInfo")
+    public ResponseEntity<List<PersonInfoView>> personInfo(@RequestParam("firstName") String firstname, @RequestParam("lastName") String lastname) {
+	return new ResponseEntity<>(service.personInfo(firstname,lastname), HttpStatus.OK);
     }
 }
