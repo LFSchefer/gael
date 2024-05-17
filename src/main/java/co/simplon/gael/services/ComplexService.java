@@ -5,7 +5,8 @@ import java.util.List;
 import co.simplon.gael.dtos.ChildAlertView;
 import co.simplon.gael.dtos.CommunityEmails;
 import co.simplon.gael.dtos.FireView;
-import co.simplon.gael.dtos.PersonFireView;
+import co.simplon.gael.dtos.FloodView;
+import co.simplon.gael.dtos.PersonView;
 import co.simplon.gael.dtos.PhoneAlertView;
 
 public interface ComplexService {
@@ -18,5 +19,5 @@ public interface ComplexService {
 
     FireView fire(String address);
 
-    void flood(String stations);
+    List<FloodView> flood(String stations);
 }

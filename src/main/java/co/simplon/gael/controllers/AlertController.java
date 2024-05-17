@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.gael.dtos.ChildAlertView;
 import co.simplon.gael.dtos.CommunityEmails;
 import co.simplon.gael.dtos.FireView;
-import co.simplon.gael.dtos.PersonFireView;
+import co.simplon.gael.dtos.FloodView;
+import co.simplon.gael.dtos.PersonView;
 import co.simplon.gael.dtos.PhoneAlertView;
 import co.simplon.gael.services.ComplexService;
 import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -47,7 +48,7 @@ public class AlertController {
     }
     
     @GetMapping("flood/stations")
-    public void flood(@RequestParam("stations") String stations) {
-	service.flood(stations);
+    public ResponseEntity<List<FloodView>> flood(@RequestParam("stations") String stations) {
+	return new ResponseEntity<>(service.flood(stations), HttpStatus.OK);
     }
 }

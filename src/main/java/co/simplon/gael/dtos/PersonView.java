@@ -3,7 +3,7 @@ package co.simplon.gael.dtos;
 import java.util.List;
 
 
-public record PersonFireView(
+public record PersonView(
 	String firstName,
 	String lastName,
 	String phone,

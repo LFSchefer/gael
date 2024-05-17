@@ -5,15 +5,19 @@ import static java.time.temporal.ChronoUnit.YEARS;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.MediaList;
 
 import co.simplon.gael.dtos.ChildAlertView;
 import co.simplon.gael.dtos.CommunityEmails;
 import co.simplon.gael.dtos.FireView;
-import co.simplon.gael.dtos.PersonFireView;
+import co.simplon.gael.dtos.FloodView;
+import co.simplon.gael.dtos.PersonMedicalRecord;
+import co.simplon.gael.dtos.PersonView;
 import co.simplon.gael.dtos.PhoneAlertView;
 import co.simplon.gael.entities.Firestation;
 import co.simplon.gael.entities.MedicalRecord;
@@ -121,8 +125,8 @@ public class ComplexServiceImpl implements ComplexService {
 		&&
 		persons.stream().map(Person::getLastname).toList().contains(m.getLastname()))
 		).toList();
-	List<PersonFireView> personsFireView = new ArrayList<>();
-	personsFireView = persons.stream().map(person -> {return new PersonFireView(
+	List<PersonView> personsFireView = new ArrayList<>();
+	personsFireView = persons.stream().map(person -> {return new PersonView(
 		person.getFirstname(),
 		person.getLastname(),
 		person.getPhone(),
@@ -135,11 +139,40 @@ public class ComplexServiceImpl implements ComplexService {
 	return new FireView(personsFireView,firestation.getStation());
     }
     
-    public void flood(String stations) {
-	List<Integer> stationsList = Stream.of(stations.split(",")).map(String::trim).map(Integer::parseInt).toList();
-
-	System.out.println(stationsList);
-    }
+    public List<FloodView> flood(String stations) {
+	List<String> stationsList = Stream.of(stations.split(",")).map(String::trim).toList();
+	List<Firestation> firestations = firestationService.findAll().stream().filter(f -> stationsList.contains(f.getStation())).toList();
+	List<Person> persons = personService.findAll().stream().filter(p -> firestations.stream()
+		.map(Firestation::getAddress).toList().contains(p.getAddress()))
+		.toList();
+	List<MedicalRecord> personMedicalRecord = medicalRecordService.findAll().stream().filter(m -> persons.stream()
+		.map(Person::getFirstname).toList().contains(m.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(m.getLastname())
+		).toList();
+	List<PersonAllergie> personsAllergies = personAllergieService.findAll().stream().filter(a -> persons.stream()
+		.map(Person::getFirstname).toList().contains(a.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(a.getLastname())
+		).toList();
+	List<PersonMedication> personsMedications = personMedicationService.findAll().stream().filter(a -> persons.stream()
+		.map(Person::getFirstname).toList().contains(a.getFirstname())
+		&&
+		persons.stream().map(Person::getLastname).toList().contains(a.getLastname())
+		).toList();
+	List<FloodView> floodViews = new ArrayList<>();
+	floodViews = firestations.stream().map(firestation -> { return new FloodView(firestation.getAddress(), 
+		persons.stream().filter(t -> t.getAddress().equals(firestation.getAddress())).map(personsFiltred -> { return new PersonView(
+			personsFiltred.getFirstname(),
+			personsFiltred.getLastname(),
+			personsFiltred.getPhone(),
+			calculateAge(personMedicalRecord.stream().filter(t -> t.getFirstname().equals(personsFiltred.getFirstname()) ).findFirst().get()),
+			personsAllergies.stream().filter(a -> a.getFirstname().equals(personsFiltred.getFirstname()) && a.getLastname().equals(personsFiltred.getLastname()) ).map(a -> a.getAllergieName() ).toList() ,
+			personsMedications.stream().filter(a -> a.getFirstname().equals(personsFiltred.getFirstname()) && a.getLastname().equals(personsFiltred.getLastname()) ).map(a -> {return a.getMedicationName();} ).toList())
+			;}).toList())
+		;}).toList();
+	return floodViews;
+     }
 
     
     private int calculateAge(MedicalRecord m) {
